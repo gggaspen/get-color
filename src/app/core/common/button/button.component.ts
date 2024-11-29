@@ -28,6 +28,6 @@ export default class ButtonComponent {
   ];
 
   ngOnInit() {
-    this.class = this.classes.find((c) => c === 'fill') || '';
+    this.class = this.classes.find((c) => c === 'pulse') || '';
   }
 }

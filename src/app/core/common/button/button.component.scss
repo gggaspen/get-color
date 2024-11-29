@@ -14,7 +14,7 @@
 .fill:hover,
 .fill:focus {
   box-shadow: inset 0 0 0 2em var(--hover);
-  box-shadow: inset 0 0 0 2em black;
+  box-shadow: inset 0 0 0 2em var(--hover);
 }
 
 // Animate the size, outside
@@ -70,7 +70,8 @@
 // Make a map with the class names and matching colors
 $colors: (
   fill: #a972cb,
-  pulse: #ef6eae,
+  // pulse: #ef6eae,
+  pulse: #000,
   close: #ff7f82,
   raise: #ffa260,
   up: #e4cb58,
@@ -92,13 +93,13 @@ button {
   display: flex;
   color: var(--color);
   transition: 0.25s;
-  border: 2px solid #222;
+  border: 1px solid #222;
 
-  // &:hover,
-  // &:focus {
-  //   border-color: var(--hover);
-  //   color: #fff;
-  // }
+  &:hover,
+  &:focus {
+    border-color: var(--hover);
+    color: #fff;
+  }
 }
 
 //=== Pen styling, ignore
