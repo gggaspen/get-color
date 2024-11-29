@@ -1,25 +1,34 @@
 import { Component, EventEmitter, Input, input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import Color from './color';
+import ColorTextComponent from './color-text.component';
+import ButtonComponent from './button/button.component';
 
 @Component({
   selector: 'Picker',
-  imports: [CommonModule],
+  imports: [CommonModule, ColorTextComponent, ButtonComponent],
+  standalone: true,
   template: `
     <div
       class="custom-color-picker"
       [ngStyle]="style"
       [style.background]="selectedColor"
     >
-      <input
-        type="color"
-        [value]="selectedColor"
-        (input)="onColorChange($event)"
-        id="colorInput"
-      />
+      <btn [color]="selectedColor">
+        <!-- <ColorText /> -->
+        <input
+          type="color"
+          [value]="selectedColor"
+          (input)="onColorChange($event)"
+          id="colorInput"
+        />
+
+        <label for="colorInput">
+          <!-- [style.background]="selectedColor" -->
+        </label>
+      </btn>
     </div>
   `,
-  standalone: true,
   styles: [
     `
       :host {
@@ -27,21 +36,29 @@ import Color from './color';
         height: 100%;
       }
 
-      /* Contenedor principal */
       .custom-color-picker {
         display: inline-flex;
         align-items: center;
         position: relative;
         justify-content: center;
-      }
-
-      /* Ocultamos el input original */
-      .custom-color-picker input[type='color'] {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        cursor: pointer;
+        input[type='color'] {
+          position: absolute;
+          width: 80px;
+          height: 60px;
+          opacity: 0;
+          cursor: pointer;
+        }
+        label {
+          width: 100%;
+          height: 100%;
+          padding: 0;
+          margin: 0;
+          // background: black;
+          // padding: 1.5em 2em;
+          cursor: pointer;
+          // transition: all 0.3s ease;
+          // box-shadow: 0 0 20px 0px #00000091;
+        }
       }
     `,
   ],
@@ -51,23 +68,23 @@ export class PickerComponent {
   size = input<'full' | number>('full');
   protected style: any;
 
-  @Input() selectedColor: string = '#ffffff'; // Color inicial
-  // @Input() label: string = 'Pick a Color'; // Texto del label
-  @Output() colorChange = new EventEmitter<string>(); // Evento para propagar cambios de color
+  @Input() selectedColor: string = '#ffffff';
+  @Output() colorChange = new EventEmitter<string>();
 
   ngOnInit() {
     const { r, g, b } = this.color().toRGB();
     this.style = {
       width: this.size() === 'full' ? '100%' : `${this.size()}px`,
       height: this.size() === 'full' ? '100%' : `${this.size()}px`,
-      background: `rgb(${r}, ${g}, ${b})`,
     };
+
+    this.selectedColor = `rgb(${r}, ${g}, ${b})`;
   }
 
   onColorChange(event: Event): void {
     const newColor = (event.target as HTMLInputElement).value;
     this.selectedColor = newColor;
-    this.colorChange.emit(newColor); // Notifica el cambio de color
+    this.colorChange.emit(newColor);
   }
 }
 
