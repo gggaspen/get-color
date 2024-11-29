@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'ColorText',
-  template: '<ng-content></ng-content>',
+  template: '<p>{{text()}}</p>',
   styles: [
     `
       :host {
@@ -11,4 +11,6 @@ import { Component } from '@angular/core';
   ],
   standalone: true,
 })
-export default class ColorTextComponent {}
+export default class ColorTextComponent {
+  text = input<string>('');
+}

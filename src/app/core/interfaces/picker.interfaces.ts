@@ -1,4 +1,4 @@
-import Color from '../../../core/common/color';
+import Color from '../utils/color';
 
 export default interface IPicker {
   size: 'full' | number;

@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import Color from '../color';
+import Color from '../../utils/color';
 
 @Component({
   selector: 'app-button, btn',
